@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.gastc2 = new System.Windows.Forms.Label();
             this.gastc1 = new System.Windows.Forms.Label();
@@ -78,6 +79,7 @@
             this.p2exit = new System.Windows.Forms.Label();
             this.p2body = new System.Windows.Forms.Label();
             this.p2chimney = new System.Windows.Forms.Label();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -575,11 +577,17 @@
             this.p2chimney.TabIndex = 156;
             this.p2chimney.Text = "-";
             // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1092, 983);
+            this.ClientSize = new System.Drawing.Size(1232, 983);
             this.Controls.Add(this.tc2exit);
             this.Controls.Add(this.tc2body);
             this.Controls.Add(this.tc2chimney);
@@ -613,6 +621,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
             this.Name = "Form1";
             this.Text = "烘干炉-数据采集分析优化系统";
@@ -675,6 +684,7 @@
         private System.Windows.Forms.Label p2exit;
         private System.Windows.Forms.Label p2body;
         private System.Windows.Forms.Label p2chimney;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 
