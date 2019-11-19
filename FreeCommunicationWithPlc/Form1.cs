@@ -24,12 +24,37 @@ namespace FreeCommunicationWithPlc
         public string riqi = System.DateTime.Now.ToString("yyyy-MM-dd");//定义日期格式
         public string shijian = DateTime.Now.ToLongTimeString().ToString();//定义时间格式
 
+        //窗体加载
         private void Form1_Load(object sender, EventArgs e)
         {
             //timer1.Start();
             //timer2.Start();
             
         }
+        //窗体关闭时执行，窗体后台运行
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+
+            this.Hide();
+        }
+        //桌面右小角图标
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                this.WindowState = FormWindowState.Minimized;
+
+                this.Hide();
+            }
+            else if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
+                this.Activate();
+            }
+        }
+
 
         //读取DB294.DBW0的值
         public void updateTodayGasValue()
