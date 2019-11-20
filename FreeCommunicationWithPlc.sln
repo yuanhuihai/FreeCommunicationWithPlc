@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCommunicationWithPlc", "FreeCommunicationWithPlc\FreeCommunicationWithPlc.csproj", "{06747840-7E84-45F5-8763-A6DC411D49CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06747840-7E84-45F5-8763-A6DC411D49CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06747840-7E84-45F5-8763-A6DC411D49CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06747840-7E84-45F5-8763-A6DC411D49CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06747840-7E84-45F5-8763-A6DC411D49CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D0D7A9B-5B82-4DE8-9F3C-310E188C7675}
+	EndGlobalSection
+EndGlobal
