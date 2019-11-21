@@ -28,6 +28,7 @@ namespace FreeCommunicationWithPlc
         private void Form1_Load(object sender, EventArgs e)
         {
             timer1.Start();
+            timer2.Start();
         
             
         }
@@ -82,16 +83,59 @@ namespace FreeCommunicationWithPlc
         {
             timer1.Interval = 1000;//执行间隔时间,单位为毫秒;此时时间间隔为1秒 
             updateTodayGasValue();
-            insert_data_to_database();//定点数据插入数据库
-                    
+            insert_data_to_database();//定点数据插入数据库                             
+        }
+
+
+
+        //读取烘干炉TNV出口温度 烟囱温度 车身计数
+        public void updateOvenInfo()
+        {
+            ed1exit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.46", 0, 3, 294, 2));
+            ed1chimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.46", 0, 3, 294, 4));
+            //ed1body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.46", 0, 3, 294, 0));
+
+            ed2exit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.54", 0, 3, 294, 2));
+            ed2chimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.54", 0, 3, 294, 4));
+            //ed2body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.54", 0, 3, 294, 0));
+
+            pvcexit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.98", 0, 3, 294, 2));
+            pvcchimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.98", 0, 3, 294, 4));
+            //pvcbody.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.98", 0, 3, 294, 0));
+
+            p1exit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.38", 0, 3, 294, 2));
+            p1chimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.38", 0, 3, 294, 4));
+            //p1body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.38", 0, 3, 294, 0));
+
+            p2exit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.46", 0, 3, 294, 2));
+            p2chimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.46", 0, 3, 294, 4));
+            //p2body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.46", 0, 3, 294, 0));
+
+            tc1exit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.82", 0, 3, 294, 2));
+            tc1chimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.82", 0, 3, 294, 4));
+            //tc1body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.82", 0, 3, 294, 0));
+
+            tc2exit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.126", 0, 3, 294, 2));
+            tc2chimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.126", 0, 3, 294, 4));
+            //tc2body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.126", 0, 3, 294, 0));
+
+
+        }
+
+        //将日期时间 TNV出口温度 烟囱温度 记录到数据库中
+        public void ovenInfoToDatabase()
+        {
+            string riqi = System.DateTime.Now.ToString("yyyy-MM-dd");//定义日期格式
+            string shijian = DateTime.Now.ToLongTimeString().ToString();//定义时间格式
+            string sqlstr = "insert into OVEN_INFO values('','" + riqi + "','" + shijian + "','" + ed1exit.Text + "','" + ed1chimney.Text + "','" + ed2exit.Text + "','" + ed2chimney.Text + "','" + pvcexit.Text + "','" + pvcchimney.Text + "','" + p1exit.Text + "','" + p1chimney.Text + "','" + p2exit.Text + "','" + p2chimney.Text + "','" + tc1exit.Text + "','" + tc1chimney.Text + "','" + tc2exit.Text + "','" + tc2chimney.Text + "') ";
+            operateDatabase.OrcGetCom(sqlstr);
         }
 
         //定点操作数据库
         public void operate_database()
         {          
             string str_sqlstr = "insert into GAS_OVEN_DAILY values('" + riqi + "','" + shijian + "','" + gased1.Text + "','" + gased2.Text + "','" + gaspvc.Text + "','" + gasp1.Text + "','" + gasp2.Text + "','" + gastc1.Text + "','" + gastc2.Text + "') ";
-            operateDatabase.OrcGetCom(str_sqlstr);
-            listInfo.Items.Add(riqi + shijian + "数据插入成功");
+            operateDatabase.OrcGetCom(str_sqlstr);         
         }
 
     
@@ -113,5 +157,11 @@ namespace FreeCommunicationWithPlc
             }
         }
 
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            timer2.Interval = 600000;//执行间隔时间,单位为毫秒;此时时间间隔为1秒 
+            updateOvenInfo();
+            ovenInfoToDatabase();
+        }
     }
 }
