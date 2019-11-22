@@ -24,7 +24,11 @@ namespace FreeCommunicationWithPlc
 
             HexDump(Buffer, Size);
 
-            return  S7.GetIntAt(Buffer, DbwNum);                
+            Client.Disconnect();
+
+            return  S7.GetIntAt(Buffer, DbwNum);
+
+            
         }
 
         public void resetPlcDbwValue(string plcIp, int Rack, int Slot, int DbNum, int DbwNum)
@@ -38,6 +42,8 @@ namespace FreeCommunicationWithPlc
             byte[] buffer = new byte[65536];
 
             Client.DBWrite(DbNum, 0, Size, buffer);
+
+            Client.Disconnect();
         }
 
 
