@@ -27,10 +27,10 @@ namespace FreeCommunicationWithPlc
         //窗体加载
         private void Form1_Load(object sender, EventArgs e)
         {
-            timer1.Start();
-            timer2.Start();
-        
-            
+             timer1.Start();
+             timer2.Start();
+           
+
         }
         //窗体关闭时执行，窗体后台运行
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -57,7 +57,7 @@ namespace FreeCommunicationWithPlc
         }
 
 
-        //读取DB294.DBW0的值
+        //读取DB294.DBW0的值 今天的天然气消耗量
         public void updateTodayGasValue()
         {
             
@@ -81,8 +81,7 @@ namespace FreeCommunicationWithPlc
         //计时器-1 每1秒执行一次
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timer1.Interval = 1000;//执行间隔时间,单位为毫秒;此时时间间隔为1秒 
-            updateTodayGasValue();
+            timer1.Interval = 1000;//执行间隔时间,单位为毫秒;此时时间间隔为1秒          
             insert_data_to_database();//定点数据插入数据库                             
         }
 
@@ -118,7 +117,24 @@ namespace FreeCommunicationWithPlc
             tc2exit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.126", 0, 3, 294, 2));
             tc2chimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.126", 0, 3, 294, 4));
             //tc2body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.126", 0, 3, 294, 0));
+        }
 
+        //烘干炉预热天然气消耗量
+        public void getOvenPreGasInfo()
+        {
+            preed.Text= System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.46", 0, 3, 294, 6));
+            prepvc.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.98", 0, 3, 294, 6));
+            pretcp1.Text= System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.38", 0, 3, 294, 6));
+            pretcp2.Text= System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.46", 0, 3, 294, 6));
+        }
+
+        //烘干炉预热天然气记录到数据库
+        public void ovenPreInfoToDatabase()
+        {
+            string riqi = System.DateTime.Now.ToString("yyyy-MM-dd");//定义日期格式
+            string shijian = DateTime.Now.ToLongTimeString().ToString();//定义时间格式
+            string sqlstr = "insert into GAS_OVEN_PRE_DAILY values('" + riqi + "','" + shijian + "','" + preed.Text + "','" + prepvc.Text + "','" + pretcp1.Text + "','" + pretcp2.Text + "') ";
+            operateDatabase.OrcGetCom(sqlstr);
 
         }
 
@@ -131,13 +147,15 @@ namespace FreeCommunicationWithPlc
             operateDatabase.OrcGetCom(sqlstr);
         }
 
-        //定点操作数据库
-        public void operate_database()
+        //TNV天然气消耗量记录到数据库中
+        public void gasTnvInfoToDatabase()
         {          
             string str_sqlstr = "insert into GAS_OVEN_DAILY values('" + riqi + "','" + shijian + "','" + gased1.Text + "','" + gased2.Text + "','" + gaspvc.Text + "','" + gasp1.Text + "','" + gasp2.Text + "','" + gastc1.Text + "','" + gastc2.Text + "') ";
             operateDatabase.OrcGetCom(str_sqlstr);         
         }
 
+   
+    
     
 
         //天然气计数数据插入数据库
@@ -145,23 +163,28 @@ namespace FreeCommunicationWithPlc
         {
             if (DateTime.Now.Hour == Convert.ToInt32(23) && DateTime.Now.Minute == Convert.ToInt32(58) && DateTime.Now.Second == Convert.ToInt32(00))
             {
-                operate_database();
-                //将DB294.DBW0的值清空
+                gasTnvInfoToDatabase();//记录TNV天然气消耗量
+                ovenPreInfoToDatabase();//记录预热天然气消耗量到数据库中
+                //将TNV天然气DB294.DBW0 开始的10个字节值清空的值清空
                 operatePlc.resetPlcDbwValue("10.228.140.46", 0, 3, 294, 0);
                 operatePlc.resetPlcDbwValue("10.228.140.54", 0, 3, 294, 0);
                 operatePlc.resetPlcDbwValue("10.228.140.98", 0, 3, 294, 0);
                 operatePlc.resetPlcDbwValue("10.228.141.38", 0, 3, 294, 0);
                 operatePlc.resetPlcDbwValue("10.228.141.46", 0, 3, 294, 0);
                 operatePlc.resetPlcDbwValue("10.228.141.82", 0, 3, 294, 0);
-                operatePlc.resetPlcDbwValue("10.228.141.126", 0, 3, 294, 0);
+                operatePlc.resetPlcDbwValue("10.228.141.126",0, 3, 294, 0);
+              
             }
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
             timer2.Interval = 600000;//执行间隔时间,单位为毫秒;此时时间间隔为1秒 
-            updateOvenInfo();
-            ovenInfoToDatabase();
+            updateOvenInfo();//更新TNV相关信息
+            updateTodayGasValue();//更新今天的天然气消耗量
+            getOvenPreGasInfo();//更新烘干炉强冷区预热天然气消耗量
+            ovenInfoToDatabase();//TNV出口温度等记录到数据库中
+          
         }
     }
 }
