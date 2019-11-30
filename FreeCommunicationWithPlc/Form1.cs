@@ -21,14 +21,19 @@ namespace FreeCommunicationWithPlc
         GetPlcDBW operatePlc = new GetPlcDBW();
         Basic_DataBase_Operate operateDatabase = new Basic_DataBase_Operate();
 
-        public string riqi = DateTime.Now.ToString("yyyy-MM-dd");//定义日期格式
-        public string shijian = DateTime.Now.ToLongTimeString().ToString();//定义时间格式
-        public int a = 600;
+        public int a = 60;
+        public int b = 0;
         //窗体加载
         private void Form1_Load(object sender, EventArgs e)
         {
              timer1.Start();//1s定时器
              timer2.Start();//10分钟定时器
+
+            toolStripStatusLabel3.Alignment = ToolStripItemAlignment.Right;
+            toolStripStatusLabel3.Text = "V" + Application.ProductVersion;
+            toolStripStatusLabel4.Alignment = ToolStripItemAlignment.Right;
+            toolStripStatusLabel4.Text = "yuanhuihai@sina.com";
+            toolStripStatusLabel5.Text= DateTime.Now.ToLocalTime().ToString();
 
         }
         //窗体关闭时执行，窗体后台运行
@@ -81,15 +86,24 @@ namespace FreeCommunicationWithPlc
         private void timer1_Tick(object sender, EventArgs e)
         {
             timer1.Interval = 1000;//执行间隔时间,单位为毫秒;此时时间间隔为1秒          
+
+           string riqi = DateTime.Now.ToString("yyyy-MM-dd");
+           string shijian = DateTime.Now.ToLongTimeString().ToString();
+
             insert_data_to_database();//定点数据插入数据库  
             a = a - 1;
             if (a == 0)
             {
-                a = 600;
+                a = 60;
+                b = b+1;
+                if (b == 10)
+                {
+                    b = 0;
+                }
             }
             toolStripStatusLabel1.Text = Convert.ToString(a);
-
-
+            toolStripStatusLabel2.Text = Convert.ToString(b);
+           
         }
 
 
@@ -138,25 +152,31 @@ namespace FreeCommunicationWithPlc
         //烘干炉预热天然气记录到数据库
         public void ovenPreInfoToDatabase()
         {
+            string riqi = DateTime.Now.ToString("yyyy-MM-dd");
+            string shijian = DateTime.Now.ToLongTimeString().ToString();
             string sqlstr = "insert into GAS_OVEN_PRE_DAILY values('" + riqi + "','" + shijian + "','" + preed.Text + "','" + prepvc.Text + "','" + pretcp1.Text + "','" + pretcp2.Text + "') ";
             operateDatabase.OrcGetCom(sqlstr);
+            listInfo.Items.Add(riqi + shijian + "烘干炉预热天然气消耗数据记录成功");
 
         }
 
         //将日期时间 TNV出口温度 烟囱温度 记录到数据库中
         public void ovenInfoToDatabase()
         {
-            string riqi = DateTime.Now.ToString("yyyy-MM-dd");//定义日期格式
-            string shijian = DateTime.Now.ToLongTimeString().ToString();//定义时间格式
+            string riqi = DateTime.Now.ToString("yyyy-MM-dd");
+            string shijian = DateTime.Now.ToLongTimeString().ToString();
             string sqlstr = "insert into OVEN_INFO values('','" + riqi + "','" + shijian + "','" + ed1exit.Text + "','" + ed1chimney.Text + "','" + ed2exit.Text + "','" + ed2chimney.Text + "','" + pvcexit.Text + "','" + pvcchimney.Text + "','" + p1exit.Text + "','" + p1chimney.Text + "','" + p2exit.Text + "','" + p2chimney.Text + "','" + tc1exit.Text + "','" + tc1chimney.Text + "','" + tc2exit.Text + "','" + tc2chimney.Text + "') ";
             operateDatabase.OrcGetCom(sqlstr);
         }
 
         //TNV天然气消耗量记录到数据库中
         public void gasTnvInfoToDatabase()
-        {          
+        {
+            string riqi = DateTime.Now.ToString("yyyy-MM-dd");
+            string shijian = DateTime.Now.ToLongTimeString().ToString();
             string str_sqlstr = "insert into GAS_OVEN_DAILY values('" + riqi + "','" + shijian + "','" + gased1.Text + "','" + gased2.Text + "','" + gaspvc.Text + "','" + gasp1.Text + "','" + gasp2.Text + "','" + gastc1.Text + "','" + gastc2.Text + "') ";
-            operateDatabase.OrcGetCom(str_sqlstr);         
+            operateDatabase.OrcGetCom(str_sqlstr);
+            listInfo.Items.Add(riqi + shijian + "TNV天然气消耗数据记录成功");
         }
 
    
