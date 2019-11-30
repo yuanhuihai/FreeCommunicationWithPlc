@@ -30,9 +30,8 @@ namespace FreeCommunicationWithPlc
             orccon.Open();
             OracleCommand orccom = new OracleCommand(M_str_sqlstr, orccon);
             orccom.ExecuteNonQuery();
-            orccom.Dispose();
             orccon.Close();
-            orccon.Dispose();
+
         }
 
 
