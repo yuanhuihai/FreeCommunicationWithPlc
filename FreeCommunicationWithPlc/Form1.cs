@@ -33,7 +33,7 @@ namespace FreeCommunicationWithPlc
             toolStripStatusLabel3.Text = "V" + Application.ProductVersion;
             toolStripStatusLabel4.Alignment = ToolStripItemAlignment.Right;
             toolStripStatusLabel4.Text = "yuanhuihai@sina.com";
-            toolStripStatusLabel5.Text= DateTime.Now.ToLocalTime().ToString();
+          
 
         }
         //窗体关闭时执行，窗体后台运行
@@ -103,7 +103,8 @@ namespace FreeCommunicationWithPlc
             }
             toolStripStatusLabel1.Text = Convert.ToString(a);
             toolStripStatusLabel2.Text = Convert.ToString(b);
-           
+            toolStripStatusLabel5.Text = DateTime.Now.ToLocalTime().ToString();
+
         }
 
 
