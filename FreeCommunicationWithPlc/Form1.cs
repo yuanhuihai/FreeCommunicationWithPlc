@@ -191,7 +191,8 @@ namespace FreeCommunicationWithPlc
             {
                 gasTnvInfoToDatabase();//记录TNV天然气消耗量
                 ovenPreInfoToDatabase();//记录预热天然气消耗量到数据库中
-                //将TNV天然气DB294.DBW0 开始的10个字节值清空的值清空
+               
+                //重置每天的TNV天然气消耗量
                 operatePlc.resetPlcDbwValue("10.228.140.46", 0, 3, 294, 0);
                 operatePlc.resetPlcDbwValue("10.228.140.54", 0, 3, 294, 0);
                 operatePlc.resetPlcDbwValue("10.228.140.98", 0, 3, 294, 0);
@@ -199,7 +200,11 @@ namespace FreeCommunicationWithPlc
                 operatePlc.resetPlcDbwValue("10.228.141.46", 0, 3, 294, 0);
                 operatePlc.resetPlcDbwValue("10.228.141.82", 0, 3, 294, 0);
                 operatePlc.resetPlcDbwValue("10.228.141.126",0, 3, 294, 0);
-              
+                //重置每天的预热天然气消耗量
+                operatePlc.resetPlcDbwValue("10.228.140.46", 0, 3, 294, 6);
+                operatePlc.resetPlcDbwValue("10.228.140.98", 0, 3, 294, 6);
+                operatePlc.resetPlcDbwValue("10.228.141.38", 0, 3, 294, 6);
+                operatePlc.resetPlcDbwValue("10.228.141.46", 0, 3, 294, 6);
             }
         }
 
