@@ -24,6 +24,7 @@ namespace FreeCommunicationWithPlc
         {          
             Client.ConnectTo(plcIp, Rack, Slot);
             byte[] buffer = new byte[65536];
+            S7.SetIntAt(buffer, 0, 0);
             Client.DBWrite(DbNum,DbwNum,2, buffer);//将DbwNum对应的字赋值为0
             Client.Disconnect();
         }
