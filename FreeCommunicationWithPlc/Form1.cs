@@ -65,19 +65,19 @@ namespace FreeCommunicationWithPlc
         public void updateTodayGasValue()
         {
             
-            gased1.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.46", 0, 3, 294, 0));
+            gased1.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.140.46", 0, 3, 294, 0));
 
-            gased2.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.54", 0, 3, 294, 0));
+            gased2.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.140.54", 0, 3, 294, 0));
 
-            gaspvc.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.98", 0, 3, 294, 0));
+            gaspvc.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.140.98", 0, 3, 294, 0));
 
-            gasp1.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.38", 0, 3, 294, 0));
+            gasp1.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.38", 0, 3, 294, 0));
 
-            gasp2.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.46", 0, 3, 294, 0));
+            gasp2.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.46", 0, 3, 294, 0));
 
-            gastc1.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.82", 0, 3, 294, 0));
+            gastc1.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.82", 0, 3, 294, 0));
 
-            gastc2.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.126", 0, 3, 294, 0));
+            gastc2.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.126", 0, 3, 294, 0));
         }
 
     
@@ -112,42 +112,42 @@ namespace FreeCommunicationWithPlc
         //读取烘干炉TNV出口温度 烟囱温度 车身计数
         public void updateOvenInfo()
         {
-            ed1exit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.46", 0, 3, 294, 2));
-            ed1chimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.46", 0, 3, 294, 4));
+            ed1exit.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.140.46", 0, 3, 294, 2));
+            ed1chimney.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.140.46", 0, 3, 294, 4));
             //ed1body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.46", 0, 3, 294, 0));
 
-            ed2exit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.54", 0, 3, 294, 2));
-            ed2chimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.54", 0, 3, 294, 4));
+            ed2exit.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.140.54", 0, 3, 294, 2));
+            ed2chimney.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.140.54", 0, 3, 294, 4));
             //ed2body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.54", 0, 3, 294, 0));
 
-            pvcexit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.98", 0, 3, 294, 2));
-            pvcchimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.98", 0, 3, 294, 4));
+            pvcexit.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.140.98", 0, 3, 294, 2));
+            pvcchimney.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.140.98", 0, 3, 294, 4));
             //pvcbody.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.98", 0, 3, 294, 0));
 
-            p1exit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.38", 0, 3, 294, 2));
-            p1chimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.38", 0, 3, 294, 4));
+            p1exit.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.38", 0, 3, 294, 2));
+            p1chimney.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.38", 0, 3, 294, 4));
             //p1body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.38", 0, 3, 294, 0));
 
-            p2exit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.46", 0, 3, 294, 2));
-            p2chimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.46", 0, 3, 294, 4));
+            p2exit.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.46", 0, 3, 294, 2));
+            p2chimney.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.46", 0, 3, 294, 4));
             //p2body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.46", 0, 3, 294, 0));
 
-            tc1exit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.82", 0, 3, 294, 2));
-            tc1chimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.82", 0, 3, 294, 4));
+            tc1exit.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.82", 0, 3, 294, 2));
+            tc1chimney.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.82", 0, 3, 294, 4));
             //tc1body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.82", 0, 3, 294, 0));
 
-            tc2exit.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.126", 0, 3, 294, 2));
-            tc2chimney.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.126", 0, 3, 294, 4));
+            tc2exit.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.126", 0, 3, 294, 2));
+            tc2chimney.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.126", 0, 3, 294, 4));
             //tc2body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.126", 0, 3, 294, 0));
         }
 
         //烘干炉预热天然气消耗量
         public void getOvenPreGasInfo()
         {
-            preed.Text= System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.46", 0, 3, 294, 6));
-            prepvc.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.140.98", 0, 3, 294, 6));
-            pretcp1.Text= System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.38", 0, 3, 294, 6));
-            pretcp2.Text= System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.46", 0, 3, 294, 6));
+            preed.Text= System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.140.46", 0, 3, 294, 6));
+            prepvc.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.140.98", 0, 3, 294, 6));
+            pretcp1.Text= System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.38", 0, 3, 294, 6));
+            pretcp2.Text= System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.46", 0, 3, 294, 6));
         }
 
         //烘干炉预热天然气记录到数据库
@@ -193,18 +193,18 @@ namespace FreeCommunicationWithPlc
                 ovenPreInfoToDatabase();//记录预热天然气消耗量到数据库中
                
                 //重置每天的TNV天然气消耗量
-                operatePlc.resetPlcDbwValue("10.228.140.46", 0, 3, 294, 0);
-                operatePlc.resetPlcDbwValue("10.228.140.54", 0, 3, 294, 0);
-                operatePlc.resetPlcDbwValue("10.228.140.98", 0, 3, 294, 0);
-                operatePlc.resetPlcDbwValue("10.228.141.38", 0, 3, 294, 0);
-                operatePlc.resetPlcDbwValue("10.228.141.46", 0, 3, 294, 0);
-                operatePlc.resetPlcDbwValue("10.228.141.82", 0, 3, 294, 0);
-                operatePlc.resetPlcDbwValue("10.228.141.126",0, 3, 294, 0);
+                operatePlc.writePlcDbwValue("10.228.140.46", 0, 3, 294, 0,0);
+                operatePlc.writePlcDbwValue("10.228.140.54", 0, 3, 294, 0,0);
+                operatePlc.writePlcDbwValue("10.228.140.98", 0, 3, 294, 0,0);
+                operatePlc.writePlcDbwValue("10.228.141.38", 0, 3, 294, 0,0);
+                operatePlc.writePlcDbwValue("10.228.141.46", 0, 3, 294, 0,0);
+                operatePlc.writePlcDbwValue("10.228.141.82", 0, 3, 294, 0,0);
+                operatePlc.writePlcDbwValue("10.228.141.126",0, 3, 294, 0,0);
                 //重置每天的预热天然气消耗量
-                operatePlc.resetPlcDbwValue("10.228.140.46", 0, 3, 294, 6);
-                operatePlc.resetPlcDbwValue("10.228.140.98", 0, 3, 294, 6);
-                operatePlc.resetPlcDbwValue("10.228.141.38", 0, 3, 294, 6);
-                operatePlc.resetPlcDbwValue("10.228.141.46", 0, 3, 294, 6);
+                operatePlc.writePlcDbwValue("10.228.140.46", 0, 3, 294, 6,0);
+                operatePlc.writePlcDbwValue("10.228.140.98", 0, 3, 294, 6,0);
+                operatePlc.writePlcDbwValue("10.228.141.38", 0, 3, 294, 6,0);
+                operatePlc.writePlcDbwValue("10.228.141.46", 0, 3, 294, 6,0);
             }
         }
 
