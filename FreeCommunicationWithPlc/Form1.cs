@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using comWithPlc;
 
 namespace FreeCommunicationWithPlc
 {
@@ -18,7 +19,7 @@ namespace FreeCommunicationWithPlc
             InitializeComponent();
         }
 
-        GetPlcDBW operatePlc = new GetPlcDBW();
+         getPlcValues operatePlc = new getPlcValues();
         Basic_DataBase_Operate operateDatabase = new Basic_DataBase_Operate();
 
         public int a = 60;

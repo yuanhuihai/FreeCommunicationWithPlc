@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Sharp7;
 
-namespace FreeCommunicationWithPlc
+namespace comWithPlc
 {
-    class GetPlcDBW
+    class getPlcValues
     {
         S7Client Client = new S7Client();
         private byte[] Buffer = new byte[65536];
