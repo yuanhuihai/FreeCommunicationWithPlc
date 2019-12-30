@@ -44,20 +44,48 @@ namespace FreeCommunicationWithPlc
 
             this.Hide();
         }
-        //桌面右小角图标
-        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void exitMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.WindowState == FormWindowState.Normal)
+            if (MessageBox.Show("你确定要退出程序吗？", "确认", MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.OK)
             {
-                this.WindowState = FormWindowState.Minimized;
-
-                this.Hide();
+                notifyIcon1.Visible = false;
+                this.Close();
+                this.Dispose();
+                Application.Exit();
             }
-            else if (this.WindowState == FormWindowState.Minimized)
+
+        }
+
+        private void hideMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void showMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+            this.Activate();
+
+        }
+
+        //桌面右小角图标
+        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)//判断鼠标的按键
             {
-                this.Show();
-                this.WindowState = FormWindowState.Normal;
-                this.Activate();
+                if (this.WindowState == FormWindowState.Normal)
+                {
+                    this.WindowState = FormWindowState.Minimized;
+
+                    this.Hide();
+                }
+                else if (this.WindowState == FormWindowState.Minimized)
+                {
+                    this.Show();
+                    this.WindowState = FormWindowState.Normal;
+                    this.Activate();
+                }
             }
         }
 
