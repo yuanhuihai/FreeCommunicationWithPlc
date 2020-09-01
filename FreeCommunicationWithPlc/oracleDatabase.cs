@@ -7,9 +7,9 @@ using Oracle.ManagedDataAccess.Client;
 using System.Data;
 
 
-namespace FreeCommunicationWithPlc
+namespace oracleDatabase
 {
-    class Basic_DataBase_Operate
+    class oracleDatabaseOperate
     {
 
         //连接Oracle数据库的方法by ethan  20180916

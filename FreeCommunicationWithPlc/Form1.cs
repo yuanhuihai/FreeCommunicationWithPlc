@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using comWithPlc;
+using oracleDatabase;
 
 namespace FreeCommunicationWithPlc
 {
@@ -20,10 +21,9 @@ namespace FreeCommunicationWithPlc
         }
 
          getPlcValues operatePlc = new getPlcValues();
-        Basic_DataBase_Operate operateDatabase = new Basic_DataBase_Operate();
+         oracleDatabaseOperate operateDatabase = new oracleDatabaseOperate();
 
-        public int a = 60;
-        public int b = 0;
+    
         //窗体加载
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -90,10 +90,28 @@ namespace FreeCommunicationWithPlc
         }
 
 
+     
+    
+    
+        //计时器-1 每1秒执行一次
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Interval = 1000;//执行间隔时间,单位为毫秒;此时时间间隔为1秒          
+
+           string riqi = DateTime.Now.ToString("yyyy-MM-dd");
+           string shijian = DateTime.Now.ToLongTimeString().ToString();
+
+            insert_data_to_database();//定点数据插入数据库  
+ 
+            toolStripStatusLabel5.Text = DateTime.Now.ToLocalTime().ToString();
+
+        }
+
+
         //读取DB294.DBW0的值 今天的天然气消耗量
         public void updateTodayGasValue()
         {
-            
+
             gased1.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.140.46", 0, 3, 294, 0));
 
             gased2.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.140.54", 0, 3, 294, 0));
@@ -107,33 +125,6 @@ namespace FreeCommunicationWithPlc
             gastc1.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.82", 0, 3, 294, 0));
 
             gastc2.Text = System.Convert.ToString(operatePlc.readPlcDbwValue("10.228.141.126", 0, 3, 294, 0));
-        }
-
-    
-    
-        //计时器-1 每1秒执行一次
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            timer1.Interval = 1000;//执行间隔时间,单位为毫秒;此时时间间隔为1秒          
-
-           string riqi = DateTime.Now.ToString("yyyy-MM-dd");
-           string shijian = DateTime.Now.ToLongTimeString().ToString();
-
-            insert_data_to_database();//定点数据插入数据库  
-            a = a - 1;
-            if (a == 0)
-            {
-                a = 60;
-                b = b+1;
-                if (b == 10)
-                {
-                    b = 0;
-                }
-            }
-            toolStripStatusLabel1.Text = Convert.ToString(a);
-            toolStripStatusLabel2.Text = Convert.ToString(b);
-            toolStripStatusLabel5.Text = DateTime.Now.ToLocalTime().ToString();
-
         }
 
 
@@ -209,9 +200,31 @@ namespace FreeCommunicationWithPlc
             listInfo.Items.Add(riqi + shijian + "TNV天然气消耗数据记录成功");
         }
 
-   
-    
-    
+
+        //更新水量信息
+        public void updateWaterInfo()
+        {
+            label27.Text = Convert.ToString(operatePlc.readPlcDbwValue("10.228.142.114", 0, 3, 294, 0));//原水流量
+            label24.Text = Convert.ToString(Convert.ToInt32(operatePlc.readPlcDbdValue("10.228.142.114", 0, 3, 88, 88)));//RO水流量
+            label22.Text = Convert.ToString(operatePlc.readPlcDbdValue("10.228.142.114", 0, 3, 88, 108));//VE水流量
+            label7.Text = Convert.ToString(operatePlc.readPlcDbwValue("10.228.142.114", 0, 3, 1200, 2));//海得科RO水量
+
+
+            label20.Text = Convert.ToString(Convert.ToInt32(operatePlc.readPlcDbdValue("10.228.142.114", 0, 3, 88, 28)));//前处理RO水用量
+            label12.Text = Convert.ToString(Convert.ToInt32(operatePlc.readPlcDbdValue("10.228.142.114", 0, 3, 88, 48)));//电泳RO水用量
+        }
+
+        //用水信息消耗量记录到数据库中
+        public void waterInfoToDatabase()
+        {
+            string riqi = DateTime.Now.ToString("yyyy-MM-dd");
+            string shijian = DateTime.Now.ToLongTimeString().ToString();
+            string str_sqlstr = "insert into WATERPLANT values('" + riqi + "','" + shijian + "','" + label27.Text + "','" + label24.Text + "','" + label22.Text + "','" + label7.Text + "','" + label20.Text + "','" + label12.Text + "') ";
+            operateDatabase.OrcGetCom(str_sqlstr);
+            listInfo.Items.Add(riqi + shijian + "用水数据记录成功");
+        }
+
+      
 
         //天然气计数数据插入数据库
         public void insert_data_to_database()
@@ -220,7 +233,9 @@ namespace FreeCommunicationWithPlc
             {
                 gasTnvInfoToDatabase();//记录TNV天然气消耗量
                 ovenPreInfoToDatabase();//记录预热天然气消耗量到数据库中
+                waterInfoToDatabase();//记录水量信息
                
+
                 //重置每天的TNV天然气消耗量
                 operatePlc.writePlcDbwValue("10.228.140.46", 0, 3, 294, 0,0);
                 operatePlc.writePlcDbwValue("10.228.140.54", 0, 3, 294, 0,0);
@@ -234,16 +249,23 @@ namespace FreeCommunicationWithPlc
                 operatePlc.writePlcDbwValue("10.228.140.98", 0, 3, 294, 6,0);
                 operatePlc.writePlcDbwValue("10.228.141.38", 0, 3, 294, 6,0);
                 operatePlc.writePlcDbwValue("10.228.141.46", 0, 3, 294, 6,0);
+                
+                //重置水量信息
+                operatePlc.writePlcDbwValue("10.228.142.114", 0, 3, 294, 0, 0);//原水流量清0
+                operatePlc.writePlcDbdValue("10.228.142.114", 0, 3, 88, 80, 0);//RO水流量清0
+                operatePlc.writePlcDbdValue("10.228.142.114", 0, 3, 88, 24, 0);//前处理RO水流量清0
+                operatePlc.writePlcDbdValue("10.228.142.114", 0, 3, 88, 44, 0);//电泳RO水流量清0
             }
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            timer2.Interval = 600000;//执行间隔时间,单位为毫秒;此时时间间隔为1秒 
+            timer2.Interval = 600000;//执行间隔时间,单位为毫秒;此时时间间隔为10分钟 
             updateOvenInfo();//更新TNV相关信息
             updateTodayGasValue();//更新今天的天然气消耗量
             getOvenPreGasInfo();//更新烘干炉强冷区预热天然气消耗量
             ovenInfoToDatabase();//TNV出口温度等记录到数据库中
+            updateWaterInfo();//更新水量信息
         }
     }
 }
