@@ -161,6 +161,45 @@ namespace FreeCommunicationWithPlc
             //tc2body.Text = System.Convert.ToString(operatePlc.getPlcDbwValue("10.228.141.126", 0, 3, 294, 0));
         }
 
+        //读取燃烧室温度 20200907
+
+            public void getBurningTem (){
+
+            label42.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.140.46", 0, 3, 92, 140)+40);
+
+
+            label39.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.140.54", 0, 3, 92, 140)+40);
+
+
+            label38.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.140.98", 0, 3, 92, 112)+40);
+
+
+            label37.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.141.38", 0, 3, 92, 112)+40);
+
+
+            label32.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.141.46", 0, 3, 92, 112)+40);
+
+
+            label31.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.141.82", 0, 3, 92, 140)+40);
+
+
+            label30.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.141.126", 0, 3, 92, 140)+40);
+
+
+
+        }
+
+        //燃烧室温度进入数据库 20200907
+        public void burnTmepToDatabase()
+        {
+            string riqi = DateTime.Now.ToString("yyyy-MM-dd");
+            string shijian = DateTime.Now.ToLongTimeString().ToString();
+            string sqlstr = "insert into BURNTEMP values('" + label42.Text + "','" + label39.Text + "','" + label38.Text + "','" + label37.Text + "','" + label32.Text + "','" + label31.Text + "','" + label30.Text + "','" + riqi + "','" + shijian + "') ";
+            operateDatabase.OrcGetCom(sqlstr);
+        }
+
+
+
         //烘干炉预热天然气消耗量
         public void getOvenPreGasInfo()
         {
@@ -266,6 +305,9 @@ namespace FreeCommunicationWithPlc
             getOvenPreGasInfo();//更新烘干炉强冷区预热天然气消耗量
             ovenInfoToDatabase();//TNV出口温度等记录到数据库中
             updateWaterInfo();//更新水量信息
+            getBurningTem();//获取燃烧室温度 20200907
+            burnTmepToDatabase();//燃烧室温度进入数据库 20200907
         }
+
     }
 }
