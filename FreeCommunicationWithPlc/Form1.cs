@@ -294,6 +294,8 @@ namespace FreeCommunicationWithPlc
                 operatePlc.writePlcDbdValue("10.228.142.114", 0, 3, 88, 80, 0);//RO水流量清0
                 operatePlc.writePlcDbdValue("10.228.142.114", 0, 3, 88, 24, 0);//前处理RO水流量清0
                 operatePlc.writePlcDbdValue("10.228.142.114", 0, 3, 88, 44, 0);//电泳RO水流量清0
+                operatePlc.writePlcDbdValue("10.228.142.114", 0, 3, 88, 108, 0);//VE水流量清0
+
             }
         }
 
