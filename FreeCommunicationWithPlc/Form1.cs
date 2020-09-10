@@ -10,6 +10,22 @@ using System.Windows.Forms;
 using comWithPlc;
 using oracleDatabase;
 
+
+
+
+
+
+#region
+/*
+ * 
+ * timer1 定时1s钟
+ * 
+ 
+     
+     
+     */
+
+#endregion
 namespace FreeCommunicationWithPlc
 {
 
@@ -23,7 +39,10 @@ namespace FreeCommunicationWithPlc
          getPlcValues operatePlc = new getPlcValues();
          oracleDatabaseOperate operateDatabase = new oracleDatabaseOperate();
 
-    
+
+        #region 程序后台运行
+
+
         //窗体加载
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -90,19 +109,17 @@ namespace FreeCommunicationWithPlc
         }
 
 
-     
-    
-    
+        #endregion
+
+
         //计时器-1 每1秒执行一次
         private void timer1_Tick(object sender, EventArgs e)
         {
             timer1.Interval = 1000;//执行间隔时间,单位为毫秒;此时时间间隔为1秒          
 
-           string riqi = DateTime.Now.ToString("yyyy-MM-dd");
-           string shijian = DateTime.Now.ToLongTimeString().ToString();
-
+            string riqi = DateTime.Now.ToString("yyyy-MM-dd");
+            string shijian = DateTime.Now.ToLongTimeString().ToString();
             insert_data_to_database();//定点数据插入数据库  
- 
             toolStripStatusLabel5.Text = DateTime.Now.ToLocalTime().ToString();
 
         }
@@ -194,7 +211,7 @@ namespace FreeCommunicationWithPlc
         {
             string riqi = DateTime.Now.ToString("yyyy-MM-dd");
             string shijian = DateTime.Now.ToLongTimeString().ToString();
-            string sqlstr = "insert into BURNTEMP values('" + label42.Text + "','" + label39.Text + "','" + label38.Text + "','" + label37.Text + "','" + label32.Text + "','" + label31.Text + "','" + label30.Text + "','" + riqi + "','" + shijian + "') ";
+            string sqlstr = "insert into BURNTEMP values('" + label42.Text + "','" + label39.Text + "','" + label38.Text + "','" + label37.Text + "','" + label32.Text + "','" + label31.Text + "','" + label30.Text + "','" + riqi + "','" + shijian + "','') ";
             operateDatabase.OrcGetCom(sqlstr);
         }
 
