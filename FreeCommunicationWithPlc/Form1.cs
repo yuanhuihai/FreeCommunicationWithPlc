@@ -19,6 +19,7 @@ using oracleDatabase;
 /*
  * 
  * timer1 定时1s钟
+ * timer2定时10分钟
  * 
  
      
@@ -182,25 +183,25 @@ namespace FreeCommunicationWithPlc
 
             public void getBurningTem (){
 
-            label42.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.140.46", 0, 3, 92, 140)+40);
+            label42.Text = System.Convert.ToString(Math.Round(operatePlc.readPlcDbdValue("10.228.140.46", 0, 3, 92, 504),2));
 
 
-            label39.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.140.54", 0, 3, 92, 140)+40);
+            label39.Text = System.Convert.ToString(Math.Round(operatePlc.readPlcDbdValue("10.228.140.54", 0, 3, 92, 420), 2));
 
 
-            label38.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.140.98", 0, 3, 92, 112)+40);
+            label38.Text = System.Convert.ToString(Math.Round(operatePlc.readPlcDbdValue("10.228.140.98", 0, 3, 92, 392), 2));
 
 
-            label37.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.141.38", 0, 3, 92, 112)+40);
+            label37.Text = System.Convert.ToString(Math.Round(operatePlc.readPlcDbdValue("10.228.141.38", 0, 3, 92, 392), 2));
 
 
-            label32.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.141.46", 0, 3, 92, 112)+40);
+            label32.Text = System.Convert.ToString(Math.Round(operatePlc.readPlcDbdValue("10.228.141.46", 0, 3, 92, 392), 2));
 
 
-            label31.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.141.82", 0, 3, 92, 140)+40);
+            label31.Text = System.Convert.ToString(Math.Round(operatePlc.readPlcDbdValue("10.228.141.82", 0, 3, 92, 420), 2));
 
 
-            label30.Text = System.Convert.ToString(operatePlc.readPlcDbdValue("10.228.141.126", 0, 3, 92, 140)+40);
+            label30.Text = System.Convert.ToString(Math.Round(operatePlc.readPlcDbdValue("10.228.141.126", 0, 3, 92, 420), 2));
 
 
 
@@ -261,8 +262,8 @@ namespace FreeCommunicationWithPlc
         public void updateWaterInfo()
         {
             label27.Text = Convert.ToString(operatePlc.readPlcDbwValue("10.228.142.114", 0, 3, 294, 0));//原水流量
-            label24.Text = Convert.ToString(Convert.ToInt32(operatePlc.readPlcDbdValue("10.228.142.114", 0, 3, 88, 88)));//RO水流量
-            label22.Text = Convert.ToString(operatePlc.readPlcDbdValue("10.228.142.114", 0, 3, 88, 108));//VE水流量
+            label24.Text = Convert.ToString(Math.Round(operatePlc.readPlcDbdValue("10.228.142.114", 0, 3, 88, 88),2));//RO水流量
+            label22.Text = Convert.ToString(Math.Round(operatePlc.readPlcDbdValue("10.228.142.114", 0, 3, 88, 108),2));//VE水流量
             label7.Text = Convert.ToString(operatePlc.readPlcDbwValue("10.228.142.114", 0, 3, 1200, 2));//海得科RO水量
 
 
@@ -311,7 +312,7 @@ namespace FreeCommunicationWithPlc
                 operatePlc.writePlcDbdValue("10.228.142.114", 0, 3, 88, 80, 0);//RO水流量清0
                 operatePlc.writePlcDbdValue("10.228.142.114", 0, 3, 88, 24, 0);//前处理RO水流量清0
                 operatePlc.writePlcDbdValue("10.228.142.114", 0, 3, 88, 44, 0);//电泳RO水流量清0
-                operatePlc.writePlcDbdValue("10.228.142.114", 0, 3, 88, 108, 0);//VE水流量清0
+                operatePlc.writePlcDbdValue("10.228.142.114", 0, 3, 88, 100, 0);//VE水流量清0
 
             }
         }
