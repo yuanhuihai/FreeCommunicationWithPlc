@@ -40,7 +40,7 @@ namespace FreeCommunicationWithPlc
          getPlcValues operatePlc = new getPlcValues();
          oracleDatabaseOperate operateDatabase = new oracleDatabaseOperate();
 
-
+        Random r = new Random();
         #region 程序后台运行
 
 
@@ -286,7 +286,7 @@ namespace FreeCommunicationWithPlc
         //天然气计数数据插入数据库
         public void insert_data_to_database()
         {
-            if (DateTime.Now.Hour == Convert.ToInt32(23) && DateTime.Now.Minute == Convert.ToInt32(58) && DateTime.Now.Second == Convert.ToInt32(00))
+            if (DateTime.Now.Hour == Convert.ToInt32(23) && DateTime.Now.Minute == Convert.ToInt32(59) && DateTime.Now.Second == Convert.ToInt32(00))
             {
                 gasTnvInfoToDatabase();//记录TNV天然气消耗量
                 ovenPreInfoToDatabase();//记录预热天然气消耗量到数据库中
